@@ -1,12 +1,26 @@
 package com.twoitesting.stepBindingCode;
 
+import com.twoitesting.baseClasses.BaseClass;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import org.junit.jupiter.api.Assertions.*;
 
-public class StepDefinitions {
+public class StepDefinitions extends BaseClass {
+
+    @Before
+    public void setUp() {
+
+        super.setUp();
+        super.getDriver().get(super.getBaseUrl());
+    }
+
+    public void tearDown() {
+
+        super.tearDown();
+    }
 
     @Given("I am logged in")
     public void i_am_logged_in() {
