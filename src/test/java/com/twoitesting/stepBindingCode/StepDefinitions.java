@@ -1,4 +1,4 @@
-package com.twoitesting;
+package com.twoitesting.stepBindingCode;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
