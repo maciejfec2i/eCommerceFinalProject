@@ -2,6 +2,7 @@ Feature: Purchasing Items
 
   Background:
     Given I am logged in
+    And I am on the shop page
     And I add an item to the cart
 
   Scenario Outline: Applying a discount code
