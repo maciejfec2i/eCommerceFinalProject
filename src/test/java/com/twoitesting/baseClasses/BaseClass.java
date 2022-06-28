@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.time.Duration;
+
 public class BaseClass {
 
     private WebDriver driver;
@@ -43,6 +45,7 @@ public class BaseClass {
                 break;
         }
 
+        this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         this.driver.manage().window().maximize();
     }
 
