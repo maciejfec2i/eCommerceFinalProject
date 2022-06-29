@@ -7,12 +7,12 @@ import com.twoitesting.pomPages.NavbarPOM;
 import com.twoitesting.utilityClasses.LoginDetailsReader;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import java.io.FileNotFoundException;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class StepDefinitions extends BaseClass {
 
@@ -52,6 +52,8 @@ public class StepDefinitions extends BaseClass {
         String password = loginDetailsReader.getPassword();
 
         this.loginPage.login(username, password);
+
+        assertThat("Login not successful", this.myAccountPage.getLogoutBtn().isDisplayed(), is(true));
     }
 
     @Given("I am on the shop page")
