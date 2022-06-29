@@ -5,7 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class CartPOM {
@@ -24,13 +27,13 @@ public class CartPOM {
     public void emptyCart() {
 
         for(int i = this.itemsToBeRemoved.size() - 1; i >= 0; i--) {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
             this.itemsToBeRemoved.get(i).click();
+
+            // Wait for clicked element to be gone from the page
+            wait.until(ExpectedConditions.stalenessOf(itemsToBeRemoved.get(i)));
         }
     }
 }
