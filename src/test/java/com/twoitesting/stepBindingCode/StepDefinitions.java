@@ -1,9 +1,7 @@
 package com.twoitesting.stepBindingCode;
 
 import com.twoitesting.baseClasses.BaseClass;
-import com.twoitesting.pomPages.LoginPOM;
-import com.twoitesting.pomPages.MyAccountPOM;
-import com.twoitesting.pomPages.NavbarPOM;
+import com.twoitesting.pomPages.*;
 import com.twoitesting.utilityClasses.LoginDetailsReader;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -12,13 +10,17 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.closeTo;
 
 public class StepDefinitions extends BaseClass {
 
     private LoginPOM loginPage;
     private NavbarPOM navbar;
     private MyAccountPOM myAccountPage;
+    private ShopPOM shopPage;
+    private ProductPOM productPage;
+    private CartPOM cartPage;
     @Before
     public void setUp() {
 
@@ -28,19 +30,22 @@ public class StepDefinitions extends BaseClass {
         this.loginPage = new LoginPOM(super.getDriver());
         this.navbar = new NavbarPOM(super.getDriver());
         this.myAccountPage = new MyAccountPOM(super.getDriver());
+        this.shopPage = new ShopPOM(super.getDriver());
+        this.productPage = new ProductPOM(super.getDriver());
+        this.cartPage = new CartPOM(super.getDriver());
     }
 
     @After
     public void tearDown() {
 
-        // If not on my account page, navigate to my account page.
-        String currentUrl = super.getDriver().getCurrentUrl();
+        // Clear cart
+        this.navbar.navigateToCartPage();
+        this.cartPage.emptyCart();
 
-        if(!currentUrl.contains("my-account")) {
-            this.navbar.navigateToMyAccount();
-        }
-
+        // Logout
+        this.navbar.navigateToMyAccount();
         this.myAccountPage.clickLogoutBtn();
+
         super.tearDown();
     }
 
@@ -53,24 +58,31 @@ public class StepDefinitions extends BaseClass {
 
         this.loginPage.login(username, password);
 
-        assertThat("Login not successful", this.myAccountPage.getLogoutBtn().isDisplayed(), is(true));
+        assertThat("Login not successful", this.myAccountPage.getLogoutBtn().isDisplayed());
     }
 
     @Given("I am on the shop page")
     public void i_am_on_the_shop_page() {
 
         this.navbar.navigateToShopPage();
+        assertThat("Not on the shop page", this.shopPage.getHeaderText(), is(equalTo("Shop")));
     }
 
-    @Given("I added an {string} to the cart")
-    public void i_added_an_item_to_the_cart(String item) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    @Given("I added a {string} to the cart")
+    public void i_added_a_item_to_the_cart(String item) {
+
+        this.shopPage.searchForItem(item);
+        this.productPage.addItemToCart();
+
+        this.shopPage.searchForItem("belt");
+        this.productPage.addItemToCart();
+
+        assertThat("No items in cart", this.navbar.getCartValue(), is(closeTo(0.1, this.navbar.getCartValue())));
     }
     @Given("I am on the cart page")
     public void i_am_on_the_cart_page() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
+        this.navbar.navigateToCartPage();
     }
     @Given("I input discount code {string}")
     public void i_input_discount_code(String string) {
