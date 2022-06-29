@@ -23,6 +23,9 @@ public class NavbarPOM {
     @FindBy(linkText = "Shop")
     private WebElement shopTab;
 
+    @FindBy(linkText = "Cart")
+    private WebElement cartTab;
+
     @FindBy(id = "site-header-cart")
     private WebElement shoppingCartInfo;
 
@@ -34,6 +37,11 @@ public class NavbarPOM {
     public void navigateToShopPage() {
 
         this.shopTab.click();
+    }
+
+    public void navigateToCartPage() {
+
+        this.cartTab.click();
     }
 
     public double getCartValue() {
