@@ -60,8 +60,8 @@ public class StepDefinitions extends BaseClass {
         this.navbar.navigateToShopPage();
     }
 
-    @Given("I add an item to the cart")
-    public void i_add_an_item_to_the_cart() {
+    @Given("I added an {string} to the cart")
+    public void i_added_an_item_to_the_cart(String item) {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
