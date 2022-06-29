@@ -5,7 +5,7 @@ Feature: Purchasing Items
     And I am on the shop page
 
   Scenario Outline: Applying a discount code
-    Given I added an "<item>" to the cart
+    Given I added a "<item>" to the cart
     And I am on the cart page
     And I input discount code "<discount code>"
     When I apply the discount code
@@ -14,6 +14,6 @@ Feature: Purchasing Items
     Examples:
       | item | discount code |
       | cap  | edgewords     |
-      | polo | edgewords     |
-      | belt | edgewords     |
+      #| polo | edgewords     |
+      #| belt | edgewords     |
 
