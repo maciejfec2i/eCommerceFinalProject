@@ -22,4 +22,9 @@ public class MyAccountPOM {
 
         this.logoutBtn.click();
     }
+
+    public WebElement getLogoutBtn() {
+
+        return this.logoutBtn;
+    }
 }
