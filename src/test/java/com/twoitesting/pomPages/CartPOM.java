@@ -1,8 +1,10 @@
 package com.twoitesting.pomPages;
 
+import com.twoitesting.utilityClasses.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -26,14 +28,12 @@ public class CartPOM {
 
     public void emptyCart() {
 
-        for(int i = this.itemsToBeRemoved.size() - 1; i >= 0; i--) {
+        while(this.itemsToBeRemoved.size() > 0) {
 
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-            this.itemsToBeRemoved.get(i).click();
-
+            this.itemsToBeRemoved.get(0).click();
             // Wait for clicked element to be gone from the page
-            wait.until(ExpectedConditions.stalenessOf(itemsToBeRemoved.get(i)));
+            Waiter.waitForElementToBeStale(this.driver, 5, this.itemsToBeRemoved.get(0));
         }
     }
 }
