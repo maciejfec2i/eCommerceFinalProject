@@ -1,5 +1,6 @@
 package com.twoitesting.pomPages;
 
+import com.twoitesting.utilityClasses.Waiter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,6 +21,7 @@ public class ProductPOM {
 
     public void addItemToCart() {
 
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.addToCartBtn);
         this.addToCartBtn.click();
     }
 }
