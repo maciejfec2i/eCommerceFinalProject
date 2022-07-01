@@ -39,16 +39,19 @@ public class NavbarPOM {
 
     public void navigateToMyAccount() {
 
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.myAccountTab);
         this.myAccountTab.click();
     }
 
     public void navigateToShopPage() {
 
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.shopTab);
         this.shopTab.click();
     }
 
     public void navigateToCartPage() {
 
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.cartTab);
         this.cartTab.click();
     }
 
