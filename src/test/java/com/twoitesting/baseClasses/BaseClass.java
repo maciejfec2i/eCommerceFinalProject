@@ -28,10 +28,6 @@ public class BaseClass {
         }
 
         switch(browser) {
-            case "chrome":
-                WebDriverManager.chromedriver().setup();
-                this.driver = new ChromeDriver();
-                break;
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
                 this.driver = new FirefoxDriver();
@@ -39,6 +35,7 @@ public class BaseClass {
             case "edge":
                 WebDriverManager.edgedriver().setup();
                 this.driver = new EdgeDriver();
+                break;
             default:
                 WebDriverManager.chromedriver().setup();
                 this.driver = new ChromeDriver();
