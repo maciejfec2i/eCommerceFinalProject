@@ -1,5 +1,6 @@
 package com.twoitesting.pomPages;
 
+import com.twoitesting.utilityClasses.Scroller;
 import com.twoitesting.utilityClasses.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -38,23 +39,6 @@ public class NavbarPOM {
 
     public void navigateToMyAccount() {
 
-        Actions action = new Actions(this.driver);
-        int yOffset;
-
-        /*try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }*/
-
-        action.scrollToElement(this.myAccountTab).build().perform();
-
-        yOffset = -100;
-
-        for(int i = yOffset; i >= -300; i+=yOffset) {
-            action.scrollByAmount(0, i).build().perform();
-        }
-
         this.myAccountTab.click();
     }
 
@@ -74,5 +58,10 @@ public class NavbarPOM {
         String[] cartInfo = shoppingCartInfo.split(" ");
 
         return Double.parseDouble(cartInfo[0].replace("£", ""));
+    }
+
+    public WebElement getMyAccountTab() {
+
+        return this.myAccountTab;
     }
 }
