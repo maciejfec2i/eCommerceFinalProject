@@ -21,4 +21,15 @@ public class Waiter {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
         wait.until(ExpectedConditions.stalenessOf(element));
     }
+
+    public static void threadSleep(int seconds) {
+
+        int milliseconds = seconds * 1000;
+
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
