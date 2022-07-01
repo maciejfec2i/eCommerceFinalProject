@@ -26,6 +26,12 @@ public class CartPOM {
     @FindBy(css = "a[aria-label='Remove this item']")
     private List<WebElement> itemsToBeRemoved;
 
+    @FindBy(id = "coupon_code")
+    private WebElement couponCodeField;
+
+    @FindBy(name = "apply_coupon")
+    private WebElement applyCouponBtn;
+
     public void emptyCart() {
 
         while(this.itemsToBeRemoved.size() > 0) {
@@ -35,5 +41,16 @@ public class CartPOM {
             // Wait for clicked element to be gone from the page
             Waiter.waitForElementToBeStale(this.driver, 5, this.itemsToBeRemoved.get(0));
         }
+    }
+
+    public void inputCouponCode(String couponCode) {
+
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.applyCouponBtn);
+        this.couponCodeField.sendKeys(couponCode);
+    }
+
+    public void clickApplyCouponBtn() {
+
+        this.applyCouponBtn.click();
     }
 }
