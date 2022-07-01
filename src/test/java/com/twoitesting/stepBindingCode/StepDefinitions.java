@@ -80,9 +80,6 @@ public class StepDefinitions extends BaseClass {
         this.shopPage.searchForItem(item);
         this.productPage.addItemToCart();
 
-        this.shopPage.searchForItem("belt");
-        this.productPage.addItemToCart();
-
         assertThat("No items in cart", this.navbar.getCartValue(), is(closeTo(0.1, this.navbar.getCartValue())));
     }
     @Given("I am on the cart page")
@@ -91,14 +88,16 @@ public class StepDefinitions extends BaseClass {
         this.navbar.navigateToCartPage();
     }
     @Given("I input discount code {string}")
-    public void i_input_discount_code(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void i_input_discount_code(String couponCode) {
+
+        this.cartPage.inputCouponCode(couponCode);
+        Waiter.threadSleep(2);
     }
     @When("I apply the discount code")
     public void i_apply_the_discount_code() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
+        this.cartPage.clickApplyCouponBtn();
+        Waiter.threadSleep(2);
     }
     @Then("The total is correct after discount and shipping is applied")
     public void the_total_is_correct_after_discount_and_shipping_is_applied() {
