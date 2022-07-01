@@ -3,6 +3,8 @@ package com.twoitesting.stepBindingCode;
 import com.twoitesting.baseClasses.BaseClass;
 import com.twoitesting.pomPages.*;
 import com.twoitesting.utilityClasses.LoginDetailsReader;
+import com.twoitesting.utilityClasses.Scroller;
+import com.twoitesting.utilityClasses.Waiter;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -42,7 +44,11 @@ public class StepDefinitions extends BaseClass {
         this.navbar.navigateToCartPage();
         this.cartPage.emptyCart();
 
+        // Thread sleep needed to prevent websites auto scroll down when removing items from cart.
+        Waiter.threadSleep(2);
+
         // Logout
+        Scroller.scrollToElement(super.getDriver(), this.navbar.getMyAccountTab());
         this.navbar.navigateToMyAccount();
         this.myAccountPage.clickLogoutBtn();
 
