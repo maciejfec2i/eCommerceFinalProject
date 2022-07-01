@@ -1,5 +1,6 @@
 package com.twoitesting.pomPages;
 
+import com.twoitesting.utilityClasses.Waiter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -51,6 +52,7 @@ public class LoginPOM {
 
     public void login(String username, String password) {
 
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.loginBtn);
         this.inputUsername(username);
         this.inputPassword(password);
         this.clickLoginBtn();
