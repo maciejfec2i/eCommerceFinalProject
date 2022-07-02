@@ -32,6 +32,9 @@ public class CartPOM {
     @FindBy(name = "apply_coupon")
     private WebElement applyCouponBtn;
 
+    @FindBy(css = "#post-5 > header")
+    private WebElement header;
+
     public void emptyCart() {
 
         while(this.itemsToBeRemoved.size() > 0) {
@@ -52,5 +55,10 @@ public class CartPOM {
     public void clickApplyCouponBtn() {
 
         this.applyCouponBtn.click();
+    }
+
+    public String getHeaderText() {
+
+        return this.header.getText();
     }
 }
