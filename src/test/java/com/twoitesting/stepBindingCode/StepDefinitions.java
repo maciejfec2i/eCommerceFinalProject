@@ -88,18 +88,19 @@ public class StepDefinitions extends BaseClass {
     public void i_am_on_the_cart_page() {
 
         this.navbar.navigateToCartPage();
+        Waiter.waitForElementToBeClickable(super.getDriver(), 5, this.navbar.getMyAccountTab());
+
+        assertThat("Not on the cart page", this.cartPage.getHeaderText(), is(equalTo("Cart")));
     }
     @Given("I input discount code {string}")
     public void i_input_discount_code(String couponCode) {
 
         this.cartPage.inputCouponCode(couponCode);
-        Waiter.threadSleep(2);
     }
     @When("I apply the discount code")
     public void i_apply_the_discount_code() {
 
         this.cartPage.clickApplyCouponBtn();
-        Waiter.threadSleep(2);
     }
     @Then("The total is correct after discount and shipping is applied")
     public void the_total_is_correct_after_discount_and_shipping_is_applied() {
