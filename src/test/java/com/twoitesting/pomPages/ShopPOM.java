@@ -16,17 +16,8 @@ public class ShopPOM {
         PageFactory.initElements(this.driver, this);
     }
 
-    @FindBy(name = "s")
-    private WebElement searchBar;
-
     @FindBy(css = "#main > header")
     private WebElement header;
-
-    public void searchForItem(String item) {
-
-        this.searchBar.clear();
-        this.searchBar.sendKeys(item + Keys.ENTER);
-    }
 
     public String getHeaderText() {
 
