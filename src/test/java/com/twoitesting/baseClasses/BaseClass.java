@@ -42,7 +42,6 @@ public class BaseClass {
                 break;
         }
 
-        // this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         this.driver.manage().window().maximize();
     }
 
