@@ -17,8 +17,9 @@ import static org.hamcrest.Matchers.closeTo;
 
 public class StepDefinitions extends BaseClass {
 
-    private LoginPOM loginPage;
     private NavbarPOM navbar;
+    private SearchBarPOM searchBar;
+    private LoginPOM loginPage;
     private MyAccountPOM myAccountPage;
     private ShopPOM shopPage;
     private ProductPOM productPage;
@@ -29,8 +30,9 @@ public class StepDefinitions extends BaseClass {
         super.setUp();
         super.getDriver().get(super.getBaseUrl());
 
-        this.loginPage = new LoginPOM(super.getDriver());
         this.navbar = new NavbarPOM(super.getDriver());
+        this.searchBar = new SearchBarPOM(super.getDriver());
+        this.loginPage = new LoginPOM(super.getDriver());
         this.myAccountPage = new MyAccountPOM(super.getDriver());
         this.shopPage = new ShopPOM(super.getDriver());
         this.productPage = new ProductPOM(super.getDriver());
@@ -77,7 +79,7 @@ public class StepDefinitions extends BaseClass {
     @Given("I added a {string} to the cart")
     public void i_added_a_item_to_the_cart(String item) {
 
-        this.shopPage.searchForItem(item);
+        this.searchBar.searchForItem(item);
         this.productPage.addItemToCart();
 
         assertThat("No items in cart", this.navbar.getCartValue(), is(closeTo(0.1, this.navbar.getCartValue())));
