@@ -14,6 +14,6 @@ Feature: Purchasing Items
     Examples:
       | item | discount code |
       | cap  | edgewords     |
-      #| polo | edgewords     |
-      #| belt | edgewords     |
+      | polo | edgewords     |
+      | belt | edgewords     |
 
