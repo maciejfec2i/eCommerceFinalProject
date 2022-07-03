@@ -101,6 +101,10 @@ public class StepDefinitions extends BaseClass {
     public void i_apply_the_discount_code() {
 
         this.cartPage.clickApplyCouponBtn();
+
+        // Wait for discount table data to appear
+        Waiter.waitForElementToBeVisible(super.getDriver(), 5, this.cartPage.getCouponTableData());
+        assertThat("Coupon not applied", this.cartPage.getCouponTableData().isDisplayed(), is(true));
     }
     @Then("The total is correct after discount and shipping is applied")
     public void the_total_is_correct_after_discount_and_shipping_is_applied() {
