@@ -35,6 +35,12 @@ public class CartPOM {
     @FindBy(css = "#post-5 > header")
     private WebElement header;
 
+    @FindBy(css = "td[data-title*='Coupon:']")
+    private WebElement couponTableData;
+
+    @FindBy(linkText = "Proceed to checkout")
+    private WebElement proceedToCheckoutBtn;
+
     public void emptyCart() {
 
         while(this.itemsToBeRemoved.size() > 0) {
@@ -60,5 +66,20 @@ public class CartPOM {
     public String getHeaderText() {
 
         return this.header.getText();
+    }
+
+    public WebElement getCouponTableData() {
+
+        return this.couponTableData;
+    }
+
+    public WebElement getApplyCouponBtn() {
+
+        return this.applyCouponBtn;
+    }
+
+    public WebElement getProceedToCheckoutBtn() {
+
+        return this.proceedToCheckoutBtn;
     }
 }
