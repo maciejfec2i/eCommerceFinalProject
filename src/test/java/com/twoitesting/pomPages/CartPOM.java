@@ -38,6 +38,15 @@ public class CartPOM {
     @FindBy(css = "td[data-title*='Coupon:']")
     private WebElement couponTableData;
 
+    @FindBy(css = "td[data-title='Subtotal']")
+    private WebElement subtotalTableData;
+
+    @FindBy(css = "td[data-title='Shipping']")
+    private WebElement shippingTableData;
+
+    @FindBy(css = ".order-total > td[data-title='Total']")
+    private WebElement totalTableData;
+
     @FindBy(linkText = "Proceed to checkout")
     private WebElement proceedToCheckoutBtn;
 
@@ -73,13 +82,33 @@ public class CartPOM {
         return this.couponTableData;
     }
 
-    public WebElement getApplyCouponBtn() {
+    public double getSubtotal() {
 
-        return this.applyCouponBtn;
+        String subtotal = this.subtotalTableData.getText().replace("£", "");
+
+        return Double.parseDouble(subtotal);
     }
 
-    public WebElement getProceedToCheckoutBtn() {
+    public double getDiscountAmount() {
 
-        return this.proceedToCheckoutBtn;
+        String discountData = this.couponTableData.getText();
+        String discountAmount = discountData.substring(0, discountData.indexOf(" ")).replace("-£", "");
+
+        return Double.parseDouble(discountAmount);
+    }
+
+    public double getShippingCost() {
+
+        String shippingData = this.shippingTableData.getText();
+        String shippingCost = shippingData.substring(shippingData.indexOf("£"), shippingData.indexOf("\n")).replace("£", "");
+
+        return Double.parseDouble(shippingCost);
+    }
+
+    public double getTotal() {
+
+        String total = this.totalTableData.getText().replace("£", "");
+
+        return Double.parseDouble(total);
     }
 }
