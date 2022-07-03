@@ -22,6 +22,12 @@ public class Waiter {
         wait.until(ExpectedConditions.stalenessOf(element));
     }
 
+    public static void waitForElementToBeVisible(WebDriver driver, int seconds, WebElement element) {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
     public static void threadSleep(int seconds) {
 
         int milliseconds = seconds * 1000;
