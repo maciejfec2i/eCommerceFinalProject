@@ -24,6 +24,7 @@ public class StepDefinitions extends BaseClass {
     private ShopPOM shopPage;
     private ProductPOM productPage;
     private CartPOM cartPage;
+
     @Before
     public void setUp() {
 
@@ -108,7 +109,13 @@ public class StepDefinitions extends BaseClass {
     }
     @Then("The total is correct after discount and shipping is applied")
     public void the_total_is_correct_after_discount_and_shipping_is_applied() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
+        double subtotal = this.cartPage.getSubtotal();
+        double discountAmount = this.cartPage.getDiscountAmount();
+        double shippingCost = this.cartPage.getShippingCost();
+        double expectedTotal = this.cartPage.getTotal();
+        double actualTotal = subtotal - discountAmount + shippingCost;
+
+        assertThat("Expected total is not equal actual total", actualTotal, is(equalTo(expectedTotal)));
     }
 }
