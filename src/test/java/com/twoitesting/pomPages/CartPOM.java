@@ -54,7 +54,6 @@ public class CartPOM {
 
         while(this.itemsToBeRemoved.size() > 0) {
 
-
             this.itemsToBeRemoved.get(0).click();
             // Wait for clicked element to be gone from the page
             Waiter.waitForElementToBeStale(this.driver, 5, this.itemsToBeRemoved.get(0));
