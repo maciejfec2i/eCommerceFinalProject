@@ -50,42 +50,49 @@ public class CheckoutPOM {
 
     public void inputFirstName(String firstName) {
 
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.placeOrderBtn);
         this.firstNameField.clear();
         this.firstNameField.sendKeys(firstName);
     }
 
     public void inputLastName(String lastName) {
 
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.placeOrderBtn);
         this.lastNameField.clear();
         this.lastNameField.sendKeys(lastName);
     }
 
     public void inputStreetAddress(String streetAddress) {
 
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.placeOrderBtn);
         this.streetAddressField.clear();
         this.streetAddressField.sendKeys(streetAddress);
     }
 
     public void inputCityName(String cityName) {
 
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.placeOrderBtn);
         this.cityField.clear();
         this.cityField.sendKeys(cityName);
     }
 
     public void inputPostcode(String postcode) {
 
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.placeOrderBtn);
         this.postcodeField.clear();
         this.postcodeField.sendKeys(postcode);
     }
 
     public void inputPhoneNumber(String phoneNumber) {
 
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.placeOrderBtn);
         this.phoneNumField.clear();
         this.phoneNumField.sendKeys(phoneNumber);
     }
 
     public void inputEmail(String email) {
 
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.placeOrderBtn);
         this.emailAddressField.clear();
         this.emailAddressField.sendKeys(email);
     }
