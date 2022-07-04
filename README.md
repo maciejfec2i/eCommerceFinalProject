@@ -14,4 +14,4 @@ The test case will login to an e-commerece site as a registered user, purchase a
 - Java 11 is required to run the tests.
 - Use git clone https://github.com/maciejfec2i/eCommerceFinalProject.git to clone the directory.
 - Install all the dependancies via the pom.xml file.
-- Open the csv file and replace "your username/email" with a valid username or email, and replcae "your password" with a valid password.
+- Open the loginDetails.csv file and replace "your username/email" with a valid username or email, and replcae "your password" with a valid password.
