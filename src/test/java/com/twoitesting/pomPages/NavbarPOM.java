@@ -74,6 +74,7 @@ public class NavbarPOM {
 
     public WebElement getMyAccountTab() {
 
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.myAccountTab);
         return this.myAccountTab;
     }
 }
