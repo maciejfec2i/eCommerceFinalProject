@@ -15,3 +15,7 @@ The test case will login to an e-commerece site as a registered user, purchase a
 - Use git clone https://github.com/maciejfec2i/eCommerceFinalProject.git to clone the directory.
 - Install all the dependancies via the pom.xml file.
 - Open the loginDetails.csv file and replace "your username/email" with a valid username or email, and replcae "your password" with a valid password.
+
+If Maven is installed, the test can be ran from the command line using mvn clean test.
+
+To test using firefox or edge use mvn clean test -Dbrowser=firefox or mvn clean test -Dbrowser=edge
