@@ -24,6 +24,9 @@ public class StepDefinitions extends BaseClass {
     private ShopPOM shopPage;
     private ProductPOM productPage;
     private CartPOM cartPage;
+    private CheckoutPOM checkoutPage;
+    private OrderReceivedPOM orderReceivedPage;
+    private OrdersPOM ordersPage;
 
     @Before
     public void setUp() {
@@ -31,6 +34,7 @@ public class StepDefinitions extends BaseClass {
         super.setUp();
         super.getDriver().get(super.getBaseUrl());
 
+        // POM setup
         this.navbar = new NavbarPOM(super.getDriver());
         this.searchBar = new SearchBarPOM(super.getDriver());
         this.loginPage = new LoginPOM(super.getDriver());
@@ -38,17 +42,35 @@ public class StepDefinitions extends BaseClass {
         this.shopPage = new ShopPOM(super.getDriver());
         this.productPage = new ProductPOM(super.getDriver());
         this.cartPage = new CartPOM(super.getDriver());
+        this.checkoutPage = new CheckoutPOM(super.getDriver());
+        this.orderReceivedPage = new OrderReceivedPOM(super.getDriver());
+        this.ordersPage = new OrdersPOM(super.getDriver());
+
+        this.loginPage.clickCookieDismissBtn();
     }
 
-    @After
+    @After(value = "@EmptyCart")
     public void tearDown() {
 
         // Clear cart
+        Waiter.threadSleep(1); // Thread sleep needed to wait out the websites autoscroll
+        Scroller.scrollToElement(super.getDriver(), this.navbar.getMyAccountTab());
         this.navbar.navigateToCartPage();
         this.cartPage.emptyCart();
 
-        // Thread sleep needed to prevent websites auto scroll down when removing items from cart.
+        // Thread sleep needed to wait out the website's auto scroll down after removing items from cart.
         Waiter.threadSleep(2);
+
+        // Logout
+        Scroller.scrollToElement(super.getDriver(), this.navbar.getMyAccountTab());
+        this.navbar.navigateToMyAccount();
+        this.myAccountPage.clickLogoutBtn();
+
+        super.tearDown();
+    }
+
+    @After(value = "@CartEmpty")
+    public void tearDown2() {
 
         // Logout
         Scroller.scrollToElement(super.getDriver(), this.navbar.getMyAccountTab());
@@ -66,8 +88,7 @@ public class StepDefinitions extends BaseClass {
         String password = loginDetailsReader.getPassword();
 
         this.loginPage.login(username, password);
-
-        assertThat("Login not successful", this.myAccountPage.getLogoutBtn().isDisplayed());
+        assertThat("Login not successful", this.myAccountPage.getLogoutBtn().isDisplayed(), is(true));
     }
 
     @Given("I am on the shop page")
@@ -89,8 +110,6 @@ public class StepDefinitions extends BaseClass {
     public void i_am_on_the_cart_page() {
 
         this.navbar.navigateToCartPage();
-        Waiter.waitForElementToBeClickable(super.getDriver(), 5, this.navbar.getMyAccountTab());
-
         assertThat("Not on the cart page", this.cartPage.getHeaderText(), is(equalTo("Cart")));
     }
     @Given("I input discount code {string}")
@@ -117,5 +136,49 @@ public class StepDefinitions extends BaseClass {
         double actualTotal = subtotal - discountAmount + shippingCost;
 
         assertThat("Expected total is not equal actual total", actualTotal, is(equalTo(expectedTotal)));
+    }
+
+    @When("I go to the checkout page")
+    public void i_go_to_the_checkout_page() {
+
+        this.navbar.navigateToCheckoutPage();
+        assertThat("Not on the checkout page", this.checkoutPage.getHeaderText(), is(equalTo("Checkout")));
+    }
+    @When("I purchase the item using valid details {string}")
+    public void i_purchase_the_item_using_valid_details(String details) {
+
+        // The details are passed in as a string separated by commas, hence the split method.
+        String[] requiredBillingDetails = details.split(",");
+        this.checkoutPage.inputRequiredBillingDetails(
+                requiredBillingDetails[0],
+                requiredBillingDetails[1],
+                requiredBillingDetails[2],
+                requiredBillingDetails[3],
+                requiredBillingDetails[4],
+                requiredBillingDetails[5],
+                requiredBillingDetails[6]
+        );
+
+        Waiter.threadSleep(1); // one second wait for button to update after inserting postcode
+        this.checkoutPage.clickPlaceOrderBtn();
+    }
+    @Then("I should see my order details")
+    public void i_should_see_my_order_details() {
+
+        assertThat("Order details are not displayed", this.orderReceivedPage.getOrderNumTableData().isDisplayed(), is(true));
+    }
+    @Then("The order details should be in my orders")
+    public void the_order_details_should_be_in_my_orders() {
+
+        // Captures the order number from the Order Received page
+        String expectedOrderNum = this.orderReceivedPage.getOrderNumber();
+
+        this.navbar.navigateToMyAccount();
+        this.myAccountPage.clickOrdersBtn();
+
+        // Captures the latest order number from the Orders page
+        String latestOrderNum = this.ordersPage.getLatestOrderNumber();
+
+        assertThat("Order numbers do not match", expectedOrderNum, is(equalTo(latestOrderNum)));
     }
 }
