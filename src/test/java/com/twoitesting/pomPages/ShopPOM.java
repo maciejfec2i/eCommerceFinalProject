@@ -1,5 +1,6 @@
 package com.twoitesting.pomPages;
 
+import com.twoitesting.utilityClasses.Waiter;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,6 +22,7 @@ public class ShopPOM {
 
     public String getHeaderText() {
 
+        Waiter.waitForElementToBeVisible(this.driver, 5, this.header);
         return this.header.getText();
     }
 }
