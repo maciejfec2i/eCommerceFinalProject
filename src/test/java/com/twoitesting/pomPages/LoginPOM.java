@@ -25,12 +25,16 @@ public class LoginPOM {
     @FindBy(name = "login")
     private WebElement loginBtn;
 
+    @FindBy(linkText = "Dismiss")
+    WebElement cookieDismissBtn;
+
     public void inputUsername(String username) {
         /*
         Inputs username into username field.
         Username field is always cleared first in case 'Remember me' checkbox is checked.
          */
 
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.loginBtn);
         this.usernameField.clear();
         this.usernameField.sendKeys(username);
     }
@@ -41,20 +45,27 @@ public class LoginPOM {
         Password field is always cleared first in case 'Remember me' checkbox is checked.
          */
 
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.loginBtn);
         this.passwordField.clear();
         this.passwordField.sendKeys(password);
     }
 
     public void clickLoginBtn() {
 
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.loginBtn);
         this.loginBtn.click();
     }
 
     public void login(String username, String password) {
 
-        Waiter.waitForElementToBeClickable(this.driver, 5, this.loginBtn);
         this.inputUsername(username);
         this.inputPassword(password);
         this.clickLoginBtn();
+    }
+
+    public void clickCookieDismissBtn() {
+
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.loginBtn);
+        this.cookieDismissBtn.click();
     }
 }
