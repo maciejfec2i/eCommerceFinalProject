@@ -34,6 +34,9 @@ public class NavbarPOM {
     @FindBy(linkText = "Cart")
     private WebElement cartTab;
 
+    @FindBy(linkText = "Checkout")
+    private WebElement checkoutTab;
+
     @FindBy(id = "site-header-cart")
     private WebElement shoppingCartInfo;
 
@@ -53,6 +56,12 @@ public class NavbarPOM {
 
         Waiter.waitForElementToBeClickable(this.driver, 5, this.cartTab);
         this.cartTab.click();
+    }
+
+    public void navigateToCheckoutPage() {
+
+        Waiter.waitForElementToBeClickable(this.driver, 5, this.checkoutTab);
+        this.checkoutTab.click();
     }
 
     public double getCartValue() {
