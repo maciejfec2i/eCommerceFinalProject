@@ -45,6 +45,7 @@ public class CheckoutPOM {
 
     public String getHeaderText() {
 
+        Waiter.waitForElementToBeVisible(this.driver, 5, this.header);
         return this.header.getText();
     }
 
