@@ -73,6 +73,7 @@ public class CartPOM {
 
     public String getHeaderText() {
 
+        Waiter.waitForElementToBeVisible(this.driver, 5, this.header);
         return this.header.getText();
     }
 
