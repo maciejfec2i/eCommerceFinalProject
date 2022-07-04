@@ -28,9 +28,9 @@ public class Waiter {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    public static void threadSleep(int seconds) {
+    public static void threadSleep(double seconds) {
 
-        int milliseconds = seconds * 1000;
+        int milliseconds = (int)(seconds * 1000);
 
         try {
             Thread.sleep(milliseconds);
