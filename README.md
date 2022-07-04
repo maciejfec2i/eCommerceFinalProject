@@ -9,3 +9,9 @@ The test will login to an e-commerence site as a registered user, purchase an it
 
 ## Test Case 2
 The test case will login to an e-commerece site as a registered user, purchase an item of clothing and go through checkout. It will capture the order number and check the order is also present in the 'My Orders' section of the site.
+
+## To Run
+- Java 11 is required to run the tests.
+- Use git clone https://github.com/maciejfec2i/eCommerceFinalProject.git to clone the directory.
+- Install all the dependancies via the pom.xml file.
+- Open the csv file and replace "your username/email" with a valid username or email, and replcae "your password" with a valid password.
