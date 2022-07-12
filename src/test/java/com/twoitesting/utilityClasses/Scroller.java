@@ -9,6 +9,6 @@ public class Scroller {
     public static void scrollToElement(WebDriver driver, WebElement element) {
 
         Actions scrollAction = new Actions(driver);
-        scrollAction.scrollToElement(element);
+        scrollAction.scrollToElement(element).build();
     }
 }
